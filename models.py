@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import List
 
 class Artist:
@@ -17,6 +18,9 @@ class Playlist:
     def track_count(self) -> int:
         return len(self.tracks)
 
+class Token(Enum):
+    YANDEX_TOKEN = 1
+
 class Data:
     def __init__(self) -> None:
         self.users = {}
@@ -25,3 +29,6 @@ class Data:
         if username in self.users.keys():
             return
         self.users[username] = {}
+
+    def save_yandex_token(self, username: str, token: str) -> None:
+        self.users[username][Token.YANDEX_TOKEN] = token
