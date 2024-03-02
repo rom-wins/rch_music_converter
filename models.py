@@ -16,3 +16,12 @@ class Playlist:
 
     def track_count(self) -> int:
         return len(self.tracks)
+
+class Data:
+    def __init__(self) -> None:
+        self.users = {}
+
+    def create_user(self, username: str) -> None:
+        if username in self.users.keys():
+            return
+        self.users[username] = {}
