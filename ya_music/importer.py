@@ -52,5 +52,4 @@ class Importer:
                 lost_track_ids.append(track_id)
                 continue
 
-        # return self.client.users_playlists(ya_playlist.kind, ya_playlist.uid)
         return lost_track_ids
