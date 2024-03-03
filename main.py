@@ -49,9 +49,18 @@ async def cmd_convert_youtube_to_yandex(message: types.Message, command: Command
 
     try:
         Validator.validate_message(message)
+
         yandex_token = data.get_yandex_token(message.from_user.username)
         yt_music_url = parse_convert_url(command)
-        convert_service.convert_youtube_to_yandex(yt_music_url, yandex_token)
+
+        convertion_result = convert_service.convert_youtube_to_yandex(yt_music_url, yandex_token)
+        convertion_result_message = "\n".join([f"{track_data} - {convertion_result[track_data]}" for track_data in convertion_result.keys()])
+
+        await message.answer(
+            "Conversion result:\n"
+            f"{convertion_result_message}"
+        )
+
     except Exception as ex:
         await message.answer(str(ex))
         return
