@@ -10,7 +10,13 @@ import logging
 
 
 logging.basicConfig(level=logging.INFO)
-session = AiohttpSession(proxy=config.proxy_server.get_secret_value())
+
+proxy_url = config.proxy_server.get_secret_value()
+
+session = None
+if proxy_url != "no_proxy":
+    session = AiohttpSession(proxy=proxy_url)
+
 bot = Bot(token=config.bot_token.get_secret_value(), session=session)
 dp = Dispatcher()
 data = Data()
