@@ -30,6 +30,16 @@ def parse_yandex_token(command: CommandObject) -> Optional[str]:
             f"/{command.command} <token>"
         )
 
+def parse_convert_url(command: CommandObject) -> Optional[str]:
+    try:
+        Validator.validate_convert_command(command)
+        return command.args.split(" ", maxsplit=1)[0]
+    except ValueError:
+        RuntimeError(
+            "Error: wrong command format. Example:\n"
+            f"/{command.command} <url>"
+        )
+
 @dp.message(Command("add_yandex_token"))
 async def cmd_add_yandex_token(message: types.Message, command: CommandObject) -> None:
     try:
