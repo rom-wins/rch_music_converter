@@ -12,7 +12,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 proxy_url = config.proxy_server.get_secret_value()
-
 session = None
 if proxy_url != "no_proxy":
     session = AiohttpSession(proxy=proxy_url)
