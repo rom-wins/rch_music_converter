@@ -40,4 +40,7 @@ class Data:
         if username not in self.users:
             raise RuntimeError("Error: User is not registered.")
 
+        if Token.YANDEX_TOKEN not in self.users[username]:
+            raise RuntimeError("Error: User don't add yandex token.")
+
         return self.users[username][Token.YANDEX_TOKEN]
