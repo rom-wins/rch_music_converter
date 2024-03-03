@@ -3,6 +3,7 @@ from aiogram.filters.command import Command, CommandObject
 from aiogram.client.session.aiohttp import AiohttpSession
 from config_reader import config
 from models import Data
+from service import ConvertService
 from validation import Validator
 from typing import Optional
 import asyncio
@@ -19,6 +20,7 @@ if proxy_url != "no_proxy":
 bot = Bot(token=config.bot_token.get_secret_value(), session=session)
 dp = Dispatcher()
 data = Data()
+convert_service = ConvertService()
 
 def parse_yandex_token(command: CommandObject) -> Optional[str]:
     try:
@@ -39,6 +41,19 @@ def parse_convert_url(command: CommandObject) -> Optional[str]:
             "Error: wrong command format. Example:\n"
             f"/{command.command} <url>"
         )
+
+@dp.message(Command("convert_youtube_to_yandex"))
+async def cmd_convert_youtube_to_yandex(message: types.Message, command: CommandObject) -> None:
+    try:
+        Validator.validate_message(message)
+        yandex_token = data.get_yandex_token(message.from_user.username)
+        yt_music_url = parse_convert_url(command)
+        convert_service.convert_youtube_to_yandex(yt_music_url, yandex_token)
+    except Exception as ex:
+        await message.answer(str(ex))
+        return
+
+    await message.answer("Yandex token added successfully!\n")
 
 @dp.message(Command("add_yandex_token"))
 async def cmd_add_yandex_token(message: types.Message, command: CommandObject) -> None:
