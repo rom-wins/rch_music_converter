@@ -44,6 +44,9 @@ def parse_convert_url(command: CommandObject) -> Optional[str]:
 
 @dp.message(Command("convert_youtube_to_yandex"))
 async def cmd_convert_youtube_to_yandex(message: types.Message, command: CommandObject) -> None:
+
+    await message.answer("Your request in process, please wait.")
+
     try:
         Validator.validate_message(message)
         yandex_token = data.get_yandex_token(message.from_user.username)
