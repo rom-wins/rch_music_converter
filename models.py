@@ -32,3 +32,12 @@ class Data:
 
     def save_yandex_token(self, username: str, token: str) -> None:
         self.users[username][Token.YANDEX_TOKEN] = token
+
+    def get_yandex_token(self, username: str) -> str:
+        if username is None or len(username) == 0:
+            raise RuntimeError("Error: Username could not be empty.")
+
+        if username not in self.users:
+            raise RuntimeError("Error: User is not registered.")
+
+        return self.users[username][Token.YANDEX_TOKEN]
