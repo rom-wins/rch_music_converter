@@ -53,7 +53,7 @@ async def cmd_convert_youtube_to_yandex(message: types.Message, command: Command
         await message.answer(str(ex))
         return
 
-    await message.answer("Yandex token added successfully!\n")
+    await message.answer("Playlist conversion from youtube to yandex successfully!")
 
 @dp.message(Command("add_yandex_token"))
 async def cmd_add_yandex_token(message: types.Message, command: CommandObject) -> None:
