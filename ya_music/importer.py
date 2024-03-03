@@ -52,4 +52,7 @@ class Importer:
                 lost_track_ids.append(track_id)
                 continue
 
+        if playlist.track_count() != 0 and len(lost_track_ids) == playlist.track_count():
+            ya_playlist.delete()
+
         return lost_track_ids
